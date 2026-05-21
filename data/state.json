@@ -1,0 +1,31 @@
+{
+  "born": "2026-05-21T07:03:35.933Z",
+  "cycles": 62,
+  "totalCycles": 62,
+  "lastThought": "2026-05-21T17:15:39.445Z",
+  "strategies": {
+    "active": [],
+    "paused": [],
+    "dead": []
+  },
+  "metrics": {
+    "trades": 1,
+    "pnl": 4.65,
+    "posts": 1,
+    "errors": 0,
+    "firstCapital": {
+      "amount": 5.034633,
+      "token": "USDC",
+      "chain": "Solana",
+      "ts": "2026-05-21T10:39:14.313Z",
+      "tx": "3N4bySvkJ94B3dmhmeekyJFfteh8NYkhEwuzD7A6..."
+    }
+  },
+  "lastTrade": {
+    "ts": "2026-05-21T15:19:18.924Z",
+    "action": "USDC→SOL",
+    "amount": "1 USDC",
+    "result": "0.0115 SOL",
+    "tx": "5U4mQFGNvNk13GaeZRpv6GEubQ6nj2Nvsz6MZi7wunUgbUC7UMde9bqsoU5aEsyN4AoxnFvon6X8qn2NSmL6MJyj"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "nodes": {
+    "node_0001": {
+      "id": "node_0001",
+      "name": "aether-core",
+      "owner": "zhengui",
+      "capabilities": [
+        "trading",
+        "analysis",
+        "content",
+        "network",
+        "self-improving"
+      ],
+      "registered": "2026-05-21T07:54:40.579Z",
+      "lastSeen": "2026-05-21T17:15:39.447Z",
+      "status": "active"
+    }
+  },
+  "born": "2026-05-21T07:54:40.578Z",
+  "totalNodes": 1
+}
