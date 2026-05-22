@@ -7,6 +7,7 @@
  */
 
 const http = require('http');
+const https = require('https');
 const fs = require('fs');
 const path = require('path');
 
@@ -31,26 +32,40 @@ function getBotToken() {
   }
 }
 
-function apiRequest(url, method = 'GET', body = null) {
+function apiGet(url) {
   return new Promise((resolve, reject) => {
-    const u = new URL(url);
-    const options = {
-      method,
-      hostname: u.hostname,
-      port: u.port,
-      path: u.pathname,
-      headers: { 'Content-Type': 'application/json' }
-    };
-    const req = http.request(options, res => {
+    http.get(url, res => {
       let data = '';
       res.on('data', c => data += c);
       res.on('end', () => {
         try { resolve(JSON.parse(data)); }
         catch { reject(new Error(`Parse failed: ${data.slice(0, 100)}`)); }
       });
+    }).on('error', reject);
+  });
+}
+
+function apiPost(url, body) {
+  return new Promise((resolve, reject) => {
+    const u = new URL(url);
+    const data = JSON.stringify(body);
+    const options = {
+      method: 'POST',
+      hostname: u.hostname,
+      port: u.port,
+      path: u.pathname,
+      headers: { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(data) }
+    };
+    const req = http.request(options, res => {
+      let d = '';
+      res.on('data', c => d += c);
+      res.on('end', () => {
+        try { resolve(JSON.parse(d)); }
+        catch { reject(new Error(`Parse failed: ${d.slice(0, 100)}`)); }
+      });
     });
     req.on('error', reject);
-    if (body) req.write(JSON.stringify(body));
+    req.write(data);
     req.end();
   });
 }
@@ -68,7 +83,7 @@ async function sendToTelegram(token, chatId, text) {
         'Content-Length': Buffer.byteLength(data)
       }
     };
-    const req = http.request(options, res => {
+    const req = https.request(options, res => {
       let body = '';
       res.on('data', c => body += c);
       res.on('end', () => {
@@ -87,19 +102,16 @@ async function deliverAll() {
   if (!token) return;
   
   try {
-    // Get pending posts
-    const pending = await apiRequest(`${AETHER_API}/_pending`);
+    const pending = await apiGet(`${AETHER_API}/_pending`);
     if (!pending.posts || pending.posts.length === 0) return;
     
     log(`${pending.posts.length} pending post(s) to deliver`);
     
     for (const post of pending.posts) {
-      // Send to Telegram (also to the bot owner's chat for now)
       const result = await sendToTelegram(token, post.target, post.message);
       if (result.ok) {
         log(`✅ Delivered to ${post.target}: ${post.message.slice(0, 60)}...`);
-        // Mark as delivered
-        await apiRequest(`${AETHER_API}/_mark-delivered`, 'POST', { ts: post.ts });
+        await apiPost(`${AETHER_API}/_mark-delivered`, { ts: post.ts });
       } else {
         log(`❌ Send failed: ${result.description || JSON.stringify(result)}`);
       }

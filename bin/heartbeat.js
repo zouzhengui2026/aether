@@ -239,7 +239,7 @@ function queueChannelPost(insight) {
   if (text === lastChannelMessage) return;
   lastChannelMessage = text;
   
-  const data = JSON.stringify({ target: '@aether_web', message: text });
+    const data = JSON.stringify({ target: 8511637228, message: text });
   const req = http.request('http://localhost:3000/_publish', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' }
