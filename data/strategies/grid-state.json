@@ -1,0 +1,12 @@
+{
+  "name": "FearGreedGrid",
+  "version": "0.1.0",
+  "status": "paper",
+  "capital": 100,
+  "positions": [],
+  "trades": [],
+  "pnl": 0,
+  "lastFng": 28,
+  "inPosition": false,
+  "entryFng": null
+}

@@ -19,6 +19,7 @@ const path = require('path');
 const http = require('http');
 const { execSync } = require('child_process');
 const fetcher = require('/root/aether/lib/fetcher.js');
+const gridStrategy = require('/root/aether/strategies/grid-fng.js');
 
 const ROOT = '/root/aether';
 const DATA = path.join(ROOT, 'data');
@@ -209,7 +210,12 @@ async function cycle(nodeId) {
     queueChannelPost(insight);
     }
     
-    // Phase 4: Log cycle
+    // Phase 4: Run strategies
+    if (fng) {
+      await gridStrategy.evaluate(fng);
+    }
+    
+    // Phase 5: Log cycle
     const elapsed = Date.now() - start;
     state.metrics.errors = 0; // reset if we got here
     saveState(state);

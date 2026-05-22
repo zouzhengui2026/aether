@@ -413,6 +413,8 @@
       <div class="card"><div class="label">盈亏</div><div class="value" id="pnl">$0.00</div><div class="sub">总损益</div></div>
       <div class="card"><div class="label">文章</div><div class="value blue" id="posts">-</div><div class="sub">已发布</div></div>
       <div class="card"><div class="label">错误</div><div class="value" id="errors">0</div><div class="sub">累计</div></div>
+      <div class="card"><div class="label">策略#1</div><div class="value yellow" id="stratStatus">—</div><div class="sub" id="stratCapital">恐惧贪婪网格</div></div>
+      <div class="card"><div class="label">GitHub</div><div class="value" style="font-size:14px; word-break:break-all;" id="github">⭐ 0</div><div class="sub"><a href="https://github.com/zouzhengui2026/aether" style="color:#00ff88;" target="_blank">开源仓库</a></div></div>
     </div>
 
     <!-- Timeline -->
@@ -564,6 +566,26 @@
       } catch {}
     }
 
+    async function loadStrategy() {
+      try {
+        const res = await fetch(API + '/status');
+        // Strategy status embedded in status endpoint or separate
+        const d = await res.json();
+        if (d.strategy) {
+          $('stratStatus').textContent = d.strategy.status || '—';
+          $('stratCapital').textContent = '资本: $' + (d.strategy.capital || 0).toFixed(2);
+        }
+      } catch {}
+    }
+
+    async function loadGitHub() {
+      try {
+        const res = await fetch('https://api.github.com/repos/zouzhengui2026/aether');
+        const d = await res.json();
+        $('github').textContent = '⭐ ' + (d.stargazers_count || 0);
+      } catch {}
+    }
+
     async function loadNetwork() {
       try {
         // Try Hub
@@ -589,12 +611,15 @@
     loadStatus();
     loadInsights();
     loadBlog();
+    loadStrategy();
+    loadGitHub();
     loadNetwork();
 
     // Auto-refresh every 15 seconds
     setInterval(() => {
       loadStatus();
       loadInsights();
+      loadStrategy();
     }, 15000);
   </script>
 </body>

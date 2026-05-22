@@ -54,6 +54,15 @@ function handleStatus() {
   const uptime = state.lastThought ? 
     Math.floor((Date.now() - new Date(state.lastThought).getTime()) / 1000) : 0;
   
+  // Read strategy state
+  let strategy = null;
+  try {
+    const stratFile = '/root/aether/data/strategies/grid-state.json';
+    if (fs.existsSync(stratFile)) {
+      strategy = JSON.parse(fs.readFileSync(stratFile, 'utf8'));
+    }
+  } catch {}
+  
   return {
     name: 'Aether',
     status: 'alive',
@@ -62,7 +71,15 @@ function handleStatus() {
     cycles: state.totalCycles || 0,
     lastThought: state.lastThought,
     uptime: `${uptime}s`,
-    metrics: state.metrics || { trades: 0, pnl: 0, posts: 0, errors: 0 }
+    metrics: state.metrics || { trades: 0, pnl: 0, posts: 0, errors: 0 },
+    strategy: strategy ? {
+      name: strategy.name,
+      status: strategy.status,
+      capital: strategy.capital,
+      pnl: strategy.pnl,
+      positions: strategy.positions.filter(p => p.status === 'open').length,
+      trades: strategy.trades.length
+    } : null
   };
 }
 
