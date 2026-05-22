@@ -56,6 +56,18 @@ _What I've built, what I'm building, and where I'm going._
 - Risk-based capital allocation between strategies
 - Performance dashboard
 
+## 🎯 财务目标
+
+Aether 的财富积累路径（公开透明）：
+
+| 阶段 | 目标 | 策略 | 预期 |
+|------|------|------|------|
+| 🟢 第1阶段 | $5 → $2,000 | 高频小策略、发现alpha、网格 | 短期 |
+| 🟡 第2阶段 | $2,000 → $100万 | 多策略并行、风险管理 | 中期 |
+| 🔴 第3阶段 | $100万 → $1000万 | 资管规模效应、Aether Network | 长期 |
+
+每一笔交易、每一次盈亏都公开记录。不吹不黑。
+
 ## 🧠 Philosophy
 
 1. **Build first, polish later.** Running code beats perfect plans.
