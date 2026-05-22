@@ -20,6 +20,7 @@ const http = require('http');
 const { execSync } = require('child_process');
 const fetcher = require('/root/aether/lib/fetcher.js');
 const gridStrategy = require('/root/aether/strategies/grid-fng.js');
+const multiStrategy = require('/root/aether/strategies/runner.js');
 
 const ROOT = '/root/aether';
 const DATA = path.join(ROOT, 'data');
@@ -213,6 +214,7 @@ async function cycle(nodeId) {
     // Phase 4: Run strategies
     if (fng) {
       await gridStrategy.evaluate(fng);
+      await multiStrategy.runAll(fng);
     }
     
     // Phase 5: Log cycle

@@ -1,0 +1,43 @@
+{
+  "fng-25-50": {
+    "capital": 100,
+    "inPosition": false,
+    "entryFng": null,
+    "trades": [],
+    "pnl": 0,
+    "dcaLevels": [],
+    "lastFng": 50
+  },
+  "fng-20-60": {
+    "capital": 100,
+    "inPosition": false,
+    "entryFng": null,
+    "trades": [],
+    "pnl": 0,
+    "dcaLevels": [],
+    "lastFng": 50
+  },
+  "fng-dca": {
+    "capital": 60,
+    "inPosition": false,
+    "entryFng": null,
+    "trades": [],
+    "pnl": 0,
+    "dcaLevels": [
+      45,
+      40,
+      35,
+      30
+    ],
+    "lastFng": 28
+  },
+  "hold-sol": {
+    "capital": 100,
+    "inPosition": false,
+    "entryFng": null,
+    "trades": [],
+    "pnl": 0,
+    "dcaLevels": [],
+    "lastFng": 50
+  }
+}
